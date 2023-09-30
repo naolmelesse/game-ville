@@ -17,7 +17,7 @@ type Game = {
     rating: number,
     id: number,
     released: string,
-    genres: string[],
+    genres: [{name : string}],
 
 }
 const getGames = async () : Promise<Game[]> => {
