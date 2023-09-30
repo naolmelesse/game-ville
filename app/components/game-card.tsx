@@ -12,7 +12,16 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-export default function GameCard({game}){
+type Game = {
+    name: string,
+    background_image: string,
+    rating: number,
+    id: number,
+    released: string,
+    genres: [{name : string}],
+}
+
+export default function GameCard(game: Game){
     const router = useRouter();
 
     return(

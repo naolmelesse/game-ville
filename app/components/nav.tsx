@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import { FiMenu } from 'react-icons/fi';
+import { FiMenu } from '@/node_modules/react-icons/fi';
 import { Input } from "@/components/ui/input"
 import Link from "@/node_modules/next/link";
 import { Button } from "@/components/ui/button"

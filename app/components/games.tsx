@@ -7,8 +7,8 @@ type Game = {
     id: number,
     released: string,
     genres: [{name : string}],
-
 }
+
 const getGames = async () : Promise<Game[]> => {
         const apiKey = process.env.NEXT_PUBLIC_RAWG_API_KEY;
         const response = await fetch(`https://api.rawg.io/api/games?key=87d59138f1444b409dad7a688c402e4e`)
