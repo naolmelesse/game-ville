@@ -6,11 +6,15 @@ import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+
+
+interface GameCardProps {
+    game: Game;
+  }
 
 type Game = {
     name: string,
@@ -20,8 +24,7 @@ type Game = {
     released: string,
     genres: [{name : string}],
 }
-
-export default function GameCard(game: Game){
+const GameCard: React.FC<GameCardProps> = ({game})  => {
     const router = useRouter();
 
     return(
@@ -48,3 +51,5 @@ export default function GameCard(game: Game){
       </>
     )
 }
+
+export default GameCard;
