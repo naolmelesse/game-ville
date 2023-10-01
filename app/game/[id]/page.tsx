@@ -5,47 +5,65 @@ import Image from 'next/image';
 type Game = {
     name: string,
     description_raw: string,
+    background_image: string,
     background_image_additional: string,
+    website: string,
     rating: number,
+    released: string,
     id: number,
-    movies: {
+    movies: [{
         id: number,
         name: string,
         preview: string,
-        data: { }
-        },
+        data: {
+            '480' : string,
+            max: string,
+         }
+    }],
 }
 const getGame = async (id : string | null) : Promise<Game> => {
-        const apiKey = process.env.NEXT_PUBLIC_RAWG_API_KEY;
-        const response = await fetch(`https://api.rawg.io/api/games/${id}?key=87d59138f1444b409dad7a688c402e4e`);
-        const moviesRes = await fetch(`https://api.rawg.io/api/games/${id}/movies?key=87d59138f1444b409dad7a688c402e4e`);
+        const response = await fetch(`https://api.rawg.io/api/games/${id}?key=06680f46b0a04784b1f8a8db74d6dff3`);
+        const moviesRes = await fetch(`https://api.rawg.io/api/games/${id}/movies?key=06680f46b0a04784b1f8a8db74d6dff3`);
         if(!response.ok)
           console.error("Error fetching the game man");
+        if(!moviesRes.ok)
+          console.error("Error fetching the game movies man");
         const data = await  response.json();
-        return data
-}
-
-export default async function Game({params } : any){
-    const game = await getGame(params.id);
+        const movieData = await moviesRes.json();
+        return {...data, movies: movieData.results};
+    }
+    
+    export default async function Game({params } : any){
+        const game = await getGame(params.id);
+        console.log(game.movies);
 
     return(
-        <div>
-            <div className="flex flex-col lg:flex-row mx-auto justify-between items-center">
-                <div className="aspect-video relative w-2/5">
-                    <Image
-                        src={game.background_image_additional}
-                        alt={game.name}
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-                <div className="w-1/3">
-                    <h1>{game.name}</h1>
-                    <p className="text-gray-600 mb-4 flex gap-1 items-center"><AiFillStar/> {game.rating}</p>
+        <div className="w-full px-5 lg:px-24">
+            <div className="flex flex-col w-full">
+                <h1 className="text-4xl ">Game Info</h1>
             
-                </div> 
+                <div className="flex flex-col lg:flex-row gap-5 my-10">
+                    <div className="aspect-video relative w-full lg:w-3/5">
+                        <Image
+                            src={game.background_image}
+                            alt={game.name}
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
+                    <div>
+                    <p className="mb-5"><span className="text-3xl text-center mr-5">{game.name}</span></p>
+                        <p className="text-gray-600 mb-4 flex gap-1 items-center">Rating: <AiFillStar/>{game.rating}</p>
+                        <p className="text-gray-600 mb-4 flex gap-1 items-center">Released: {game.released}</p>
+                        <p className="text-gray-600 mb-4 flex gap-1 items-center">Website: {game.website}</p>
+                    </div>
+                </div>
+                <div className="bg-[#eee] px-10 pb-5">
+                    <h2 className="text-xl font-medium my-5">Description</h2>
+                    <p className=" font-light text-justify">{game.description_raw}</p> 
+                </div>
+                {/* {game.movies} */}
             </div>
-            <p>{game.description_raw}</p> 
         </div>
     )
 }
