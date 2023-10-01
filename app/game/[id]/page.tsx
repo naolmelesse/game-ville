@@ -29,7 +29,7 @@ export default async function Game(){
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
 
-    const game = await getGame(id);
+    const game = await getGame(Number(id));
     return(
         <div className="flex flex-col lg:flex-row justify-between items-center">
             <div className="aspect-video relative w-3/5">
