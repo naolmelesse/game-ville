@@ -1,25 +1,24 @@
 'use client'
 import { useState } from "react";
 import { FiMenu } from '@/node_modules/react-icons/fi';
-import { Input } from "@/components/ui/input"
 import Link from "@/node_modules/next/link";
-import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation";
 
 export default function Navbar(){
+  const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  
+  const router = useRouter();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
   
   
-  
   return (
-    <nav className=" py-5 w-full">
+    <nav className="pt-5 w-full">
       <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between items-center">
 
         <div className="flex justify-between w-full lg:w-auto mb-5 lg:mb-auto">
-          <Link href="/" className=" font-bold text-xl">Game Ville</Link>
+          <Link href="/" className=" font-bold text-xl">GameVille</Link>
 
           <div className="md:hidden">
               <FiMenu onClick={toggleMenu} className="md:hidden "/>
@@ -32,7 +31,7 @@ export default function Navbar(){
               Home
             </Link>
             <Link href="#" className="block  mb-2">
-              My Games
+              Favourites
             </Link>
             <Link href="#" className="block  mb-2">
               Trending
@@ -41,8 +40,13 @@ export default function Navbar(){
         )}
  
         <div className="flex lg:w-2/5">
-          <input className="px-3 py-2 rounded-l-full lg:w-4/5" type="text" name="search" placeholder="search"/>
-          <button className="px-4 py-1 bg-[#333] text-[#fff] lg:w-1/5 rounded-r-full hover:bg-primary/90">Search</button>
+          <input className="px-3 py-2 border rounded-l-full lg:w-4/5" type="text" name="search"
+                  placeholder="Search for games..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}/>
+          <button type="button" className="-ml-1 px-4 py-1 bg-[#333] text-[#fff] lg:w-1/5 rounded-r-full hover:bg-primary/90"
+           onClick={() => router.push(`/search/${query}`) }
+           >Search</button>
         </div>
         
         <div className="hidden md:flex text-lg space-x-4">
@@ -50,7 +54,7 @@ export default function Navbar(){
             Home
           </Link>
           <Link href="#" className="block  mb-2">
-            My Games
+            Favourites
           </Link>
           <Link href="#" className="block  mb-2">
             Trending

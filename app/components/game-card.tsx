@@ -44,7 +44,7 @@ const GameCard: React.FC<GameCardProps> = ({game})  => {
             <CardFooter className="flex flex-col items-start">
             <p className="text-gray-600 mb-4 flex gap-1 items-center"><AiFillStar/> {game.rating}</p>
             <p className="text-gray-600 mb-4">Released: {game.released}</p>
-            <div className="text-gray-600 mb-4 flex flex-wrap gap-1">Genres: {game.genres.map(genre => <Badge variant="outline">{genre.name}</Badge>
+            <div className="text-gray-600 mb-4 flex flex-wrap gap-1">Genres: {game.genres.map(genre => <Badge key={genre.name} variant="outline">{genre.name}</Badge>
                 )}</div>
             </CardFooter>
         </Card>
