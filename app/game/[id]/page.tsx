@@ -1,6 +1,6 @@
 import { AiFillStar } from "react-icons/ai"
 import Image from 'next/image';
-import MoviePlayer from '@/app/components/movie-player';
+
 type Game = {
     name: string,
     description_raw: string,
