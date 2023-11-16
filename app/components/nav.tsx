@@ -11,6 +11,7 @@ export default function Navbar(){
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   
   
   return (
@@ -43,7 +44,9 @@ export default function Navbar(){
           <input className="px-3 py-2 border rounded-l-full lg:w-4/5" type="text" name="search"
                   placeholder="Search for games..."
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}/>
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyPress={(e) => {if(e.key === 'Enter') router.push(`/search/${query}`)} }
+                  />   
           <button type="button" className="-ml-1 px-4 py-1 bg-[#333] text-[#fff] lg:w-1/5 rounded-r-full hover:bg-primary/90"
            onClick={() => router.push(`/search/${query}`) }
            >Search</button>
